@@ -1,15 +1,15 @@
-echo "[BUILD]: UMOUNT boot.img..."
+echo "[INIT]: UMOUNT boot.img..."
 sudo umount mounted/
-echo "[BUILD]: RM boot.img..."
+echo "[INIT]: RM boot.img..."
 rm boot.img
-echo "[BUILD]: CREATE NEW boot.img..."
+echo "[INIT]: CREATE NEW boot.img..."
 truncate -s 1GB boot.img
 chmod 777 boot.img
-echo "[BUILD]: CREATE NEW mounted dir"
+echo "[INIT]: CREATE NEW mounted dir"
 mkdir mounted
-echo "[BUILD]: CREATE FILESYSTEM..."
+echo "[INIT]: CREATE FILESYSTEM..."
 sudo mkfs boot.img
-echo "[BUILD]: MOUNT boot.img TO mounted/ ..."
+echo "[INIT]: MOUNT boot.img TO mounted/ ..."
 sudo mount boot.img mounted/
-echo "[BUILD]: INSTALLING SYSLINUX BOOTLOADER..."
+echo "[INIT]: INSTALLING SYSLINUX BOOTLOADER..."
 sudo extlinux --install mounted/
