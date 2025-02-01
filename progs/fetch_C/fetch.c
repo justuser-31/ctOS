@@ -19,7 +19,7 @@ void get_system_info() {
     printf("██║░░██╗░░░██║░░░██║░░██║░╚═══██╗   RAM: %lu KB\n", sysInfo.totalram);
     printf("╚█████╔╝░░░██║░░░╚█████╔╝██████╔╝\n");
     printf("░╚════╝░░░░╚═╝░░░░╚════╝░╚═════╝░\n\n");
-    printf("        By justuser_31 (aswer) and tempuser_31 (Sans)\n");
+    printf("        By @justuser_31 (aswer) and @justuser31 (_SAN5_SkeLet0n_)\n");
     printf("\n");
 
     // ... другие вызовы для получения информации
