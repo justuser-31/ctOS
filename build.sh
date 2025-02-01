@@ -17,3 +17,4 @@ sudo cp -r progs/binary_files/* mounted/progs
 echo "[BUILD]: COPY SYSLINUX TO mounted/..."
 sudo cp -r syslinux mounted/
 sudo chmod -R 777 mounted/syslinux/
+sudo chmod 777 mounted/syslinux/
