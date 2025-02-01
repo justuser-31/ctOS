@@ -4,10 +4,10 @@ int main() {
     char operator;
     double num1, num2;
 
-    printf("Enter 2 numbers: ");
+    printf("Enter 2 numbers: "); fflush(stdout);
     scanf("%lf %lf", &num1, &num2);
 
-    printf("Enter operation (+, -, *, /): ");
+    printf("Enter operation (+, -, *, /): "); fflush(stdout);
     scanf(" %c", &operator);
 
     switch(operator) {
