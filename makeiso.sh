@@ -31,3 +31,7 @@ cd ..
 genisoimage -o ctOS.iso -b isolinux/isolinux.bin \
 -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -J -R -V "ctOS" iso/
+
+# Сделать iso возможным для записи на флешку
+# Пока не уверен, что работает
+isohybrid ctOS.iso
