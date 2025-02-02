@@ -1,4 +1,4 @@
-export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/progs:/files/x86_64-linux-musl-native/bin"
+export PATH="/bin:/sbin:/usr/bin:/usr/sbin:/progs:/files/x86_64-linux-musl-native/bin:/files/Python-3.13.1"
 
 if [ "$PS1" ]; then
 	if [ "`id -u`" -eq 0 ]; then
