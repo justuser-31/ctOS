@@ -15,7 +15,7 @@ build_time_vars = {'ABIFLAGS': '',
  'BINDIR': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/bin',
  'BINLIBDEST': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/lib/python3.11',
  'BLDLIBRARY': 'libpython3.11.a',
- 'BLDSHARED': 'gcc -shared',
+ 'BLDSHARED': 'gcc -shared -static -static-libgcc',
  'BOOTSTRAP_HEADERS': '\\',
  'BUILDEXE': '',
  'BUILDPYTHON': 'python',
@@ -34,12 +34,14 @@ build_time_vars = {'ABIFLAGS': '',
                             '-Wno-missing-field-initializers '
                             '-Werror=implicit-function-declaration '
                             '-fvisibility=hidden',
- 'CONFIGURE_CPPFLAGS': '',
- 'CONFIGURE_LDFLAGS': '',
+ 'CONFIGURE_CPPFLAGS': '-fPIC -static',
+ 'CONFIGURE_LDFLAGS': '-static -static-libgcc',
  'CONFIGURE_LDFLAGS_NODIST': '-fno-semantic-interposition',
  'CONFIGURE_LDFLAGS_NOLTO': '',
- 'CONFIG_ARGS': "'--enable-optimizations' "
-                "'--prefix=/home/devuan/Desktop/Python-3.11.3/INSTALLED/'",
+ 'CONFIG_ARGS': "'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' "
+                "'--disable-shared' "
+                "'--prefix=/home/devuan/Desktop/Python-3.11.3/INSTALLED/' "
+                "'--enable-optimizations'",
  'CONFINCLUDEDIR': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/include',
  'CONFINCLUDEPY': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/include/python3.11',
  'COREPYTHONPATH': '',
@@ -49,7 +51,7 @@ build_time_vars = {'ABIFLAGS': '',
  'COVERAGE_REPORT_OPTIONS': '--rc lcov_branch_coverage=1 --branch-coverage '
                             '--title "CPython 3.11 LCOV report [commit $(shell '
                             ')]"',
- 'CPPFLAGS': '-I. -I./Include',
+ 'CPPFLAGS': '-I. -I./Include -fPIC -static',
  'CXX': 'g++',
  'DECIMAL_CFLAGS': '-I./Modules/_decimal/libmpdec -DCONFIG_64=1 -DANSI=1 '
                    '-DHAVE_UINT128_T=1',
@@ -311,7 +313,7 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE_LIBREADLINE': 1,
  'HAVE_LIBRESOLV': 0,
  'HAVE_LIBSENDFILE': 0,
- 'HAVE_LIBSQLITE3': 1,
+ 'HAVE_LIBSQLITE3': 0,
  'HAVE_LIBUTIL_H': 0,
  'HAVE_LINK': 1,
  'HAVE_LINKAT': 1,
@@ -600,10 +602,10 @@ build_time_vars = {'ABIFLAGS': '',
  'IO_H': 'Modules/_io/_iomodule.h',
  'IO_OBJS': '\\',
  'LDCXXSHARED': 'g++ -shared',
- 'LDFLAGS': '',
+ 'LDFLAGS': '-static -static-libgcc',
  'LDLIBRARY': 'libpython3.11.a',
  'LDLIBRARYDIR': '',
- 'LDSHARED': 'gcc -shared',
+ 'LDSHARED': 'gcc -shared -static -static-libgcc',
  'LDVERSION': '3.11',
  'LIBC': '',
  'LIBDEST': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/lib/python3.11',
@@ -614,7 +616,7 @@ build_time_vars = {'ABIFLAGS': '',
                     '-Wno-unused-parameter -Wno-missing-field-initializers '
                     '-Werror=implicit-function-declaration -fvisibility=hidden '
                     '-fprofile-use -fprofile-correction -I./Include/internal '
-                    '-I. -I./Include -fPIC',
+                    '-I. -I./Include -fPIC -static -fPIC',
  'LIBEXPAT_HEADERS': '\\',
  'LIBEXPAT_OBJS': '\\',
  'LIBFFI_INCLUDEDIR': '',
@@ -626,7 +628,7 @@ build_time_vars = {'ABIFLAGS': '',
                     '-Wno-unused-parameter -Wno-missing-field-initializers '
                     '-Werror=implicit-function-declaration -fvisibility=hidden '
                     '-fprofile-use -fprofile-correction -I./Include/internal '
-                    '-I. -I./Include -fPIC',
+                    '-I. -I./Include -fPIC -static -fPIC',
  'LIBMPDEC_HEADERS': '\\',
  'LIBMPDEC_OBJS': '\\',
  'LIBOBJDIR': 'Python/',
@@ -650,7 +652,13 @@ build_time_vars = {'ABIFLAGS': '',
  'LLVM_PROF_FILE': '',
  'LLVM_PROF_MERGER': 'true',
  'LN': 'ln',
- 'LOCALMODLIBS': '',
+ 'LOCALMODLIBS': '-lm -lm Modules/_decimal/libmpdec/libmpdec.a          '
+                 '-lm     -lm -lz -lm -lm    -lm '
+                 'Modules/expat/libexpat.a                 -lrt -lbsd        '
+                 '-lcrypt  -lbz2  -ldl -lffi  -llzma  -lz  -lreadline '
+                 '-ltermcap   -l:libssl.a -Wl,--exclude-libs,libssl.a '
+                 '-l:libcrypto.a -Wl,--exclude-libs,libcrypto.a   '
+                 '-l:libcrypto.a -Wl,--exclude-libs,libcrypto.a',
  'MACHDEP': 'linux',
  'MACHDEP_OBJS': '',
  'MACHDESTLIB': '/home/devuan/Desktop/Python-3.11.3/INSTALLED/lib/python3.11',
@@ -664,9 +672,25 @@ build_time_vars = {'ABIFLAGS': '',
  'MODBUILT_NAMES': 'atexit  faulthandler  posix  _signal  _tracemalloc  '
                    '_codecs  _collections  errno  _io  itertools  _sre  '
                    '_thread  time  _weakref  _abc  _functools  _locale  '
-                   '_operator  _stat  _symtable  pwd  xxsubtype',
+                   '_operator  _stat  _symtable  pwd  _asyncio  _bisect  '
+                   '_contextvars  _csv  _datetime  _decimal  _heapq  _json  '
+                   '_lsprof  _multiprocessing  _opcode  _pickle  _queue  '
+                   '_random  _socket  _statistics  _struct  _typing  '
+                   '_zoneinfo  array  audioop  binascii  cmath  math  mmap  '
+                   'select  _elementtree  pyexpat  _blake2  _md5  _sha1  '
+                   '_sha256  _sha512  _sha3  _codecs_cn  _codecs_hk  '
+                   '_codecs_iso2022  _codecs_jp  _codecs_kr  _codecs_tw  '
+                   '_multibytecodec  unicodedata  _posixsubprocess  '
+                   '_posixshmem  fcntl  grp  ossaudiodev  resource  spwd  '
+                   'syslog  termios  _crypt  _bz2  _ctypes  _lzma  zlib  '
+                   'readline  _ssl  _hashlib  xxsubtype',
  'MODDISABLED_NAMES': '',
- 'MODLIBS': '',
+ 'MODLIBS': '-lm -lm Modules/_decimal/libmpdec/libmpdec.a          -lm     -lm '
+            '-lz -lm -lm    -lm Modules/expat/libexpat.a                 -lrt '
+            '-lbsd        -lcrypt  -lbz2  -ldl -lffi  -llzma  -lz  -lreadline '
+            '-ltermcap   -l:libssl.a -Wl,--exclude-libs,libssl.a '
+            '-l:libcrypto.a -Wl,--exclude-libs,libcrypto.a   -l:libcrypto.a '
+            '-Wl,--exclude-libs,libcrypto.a',
  'MODOBJS': 'Modules/atexitmodule.o  Modules/faulthandler.o  '
             'Modules/posixmodule.o  Modules/signalmodule.o  '
             'Modules/_tracemalloc.o  Modules/_codecsmodule.o  '
@@ -679,8 +703,42 @@ build_time_vars = {'ABIFLAGS': '',
             'Modules/_weakref.o  Modules/_abc.o  Modules/_functoolsmodule.o  '
             'Modules/_localemodule.o  Modules/_operator.o  Modules/_stat.o  '
             'Modules/symtablemodule.o  Modules/pwdmodule.o  '
-            'Modules/xxsubtype.o',
+            'Modules/_asynciomodule.o  Modules/_bisectmodule.o  '
+            'Modules/_contextvarsmodule.o  Modules/_csv.o  '
+            'Modules/_datetimemodule.o  Modules/_decimal/_decimal.o  '
+            'Modules/_heapqmodule.o  Modules/_json.o  Modules/_lsprof.o '
+            'Modules/rotatingtree.o  '
+            'Modules/_multiprocessing/multiprocessing.o '
+            'Modules/_multiprocessing/semaphore.o  Modules/_opcode.o  '
+            'Modules/_pickle.o  Modules/_queuemodule.o  '
+            'Modules/_randommodule.o  Modules/socketmodule.o  '
+            'Modules/_statisticsmodule.o  Modules/_struct.o  '
+            'Modules/_typingmodule.o  Modules/_zoneinfo.o  '
+            'Modules/arraymodule.o  Modules/audioop.o  Modules/binascii.o  '
+            'Modules/cmathmodule.o  Modules/mathmodule.o  '
+            'Modules/mmapmodule.o  Modules/selectmodule.o  '
+            'Modules/_elementtree.o  Modules/pyexpat.o  '
+            'Modules/_blake2/blake2module.o Modules/_blake2/blake2b_impl.o '
+            'Modules/_blake2/blake2s_impl.o  Modules/md5module.o  '
+            'Modules/sha1module.o  Modules/sha256module.o  '
+            'Modules/sha512module.o  Modules/_sha3/sha3module.o  '
+            'Modules/cjkcodecs/_codecs_cn.o  Modules/cjkcodecs/_codecs_hk.o  '
+            'Modules/cjkcodecs/_codecs_iso2022.o  '
+            'Modules/cjkcodecs/_codecs_jp.o  Modules/cjkcodecs/_codecs_kr.o  '
+            'Modules/cjkcodecs/_codecs_tw.o  '
+            'Modules/cjkcodecs/multibytecodec.o  Modules/unicodedata.o  '
+            'Modules/_posixsubprocess.o  '
+            'Modules/_multiprocessing/posixshmem.o  Modules/fcntlmodule.o  '
+            'Modules/grpmodule.o  Modules/ossaudiodev.o  Modules/resource.o  '
+            'Modules/spwdmodule.o  Modules/syslogmodule.o  Modules/termios.o  '
+            'Modules/_cryptmodule.o  Modules/_bz2module.o  '
+            'Modules/_ctypes/_ctypes.o Modules/_ctypes/callbacks.o '
+            'Modules/_ctypes/callproc.o Modules/_ctypes/stgdict.o '
+            'Modules/_ctypes/cfield.o  Modules/_lzmamodule.o  '
+            'Modules/zlibmodule.o  Modules/readline.o  Modules/_ssl.o  '
+            'Modules/_hashopenssl.o  Modules/xxsubtype.o',
  'MODSHARED_NAMES': '',
+ 'MODULE_ARRAY_LDFLAGS': '',
  'MODULE_ARRAY_STATE': 'yes',
  'MODULE_ATEXIT_LDFLAGS': '',
  'MODULE_AUDIOOP_LDFLAGS': '-lm',
@@ -695,11 +753,13 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_FAULTHANDLER_LDFLAGS': '',
  'MODULE_FCNTL_LDFLAGS': '-lbsd',
  'MODULE_FCNTL_STATE': 'yes',
+ 'MODULE_GRP_LDFLAGS': '',
  'MODULE_GRP_STATE': 'yes',
  'MODULE_ITERTOOLS_LDFLAGS': '',
  'MODULE_MATH_DEPS': './Modules/_math.h',
  'MODULE_MATH_LDFLAGS': '-lm',
  'MODULE_MATH_STATE': 'yes',
+ 'MODULE_MMAP_LDFLAGS': '',
  'MODULE_MMAP_STATE': 'yes',
  'MODULE_NIS_CFLAGS': '-I/usr/include/tirpc',
  'MODULE_NIS_LDFLAGS': '-lnsl -ltirpc',
@@ -714,15 +774,21 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_PYEXPAT_DEPS': '\\ Modules/expat/libexpat.a',
  'MODULE_PYEXPAT_LDFLAGS': '-lm Modules/expat/libexpat.a',
  'MODULE_PYEXPAT_STATE': 'yes',
+ 'MODULE_RESOURCE_LDFLAGS': '',
  'MODULE_RESOURCE_STATE': 'yes',
+ 'MODULE_SELECT_LDFLAGS': '',
  'MODULE_SELECT_STATE': 'yes',
+ 'MODULE_SPWD_LDFLAGS': '',
  'MODULE_SPWD_STATE': 'yes',
+ 'MODULE_SYSLOG_LDFLAGS': '',
  'MODULE_SYSLOG_STATE': 'yes',
+ 'MODULE_TERMIOS_LDFLAGS': '',
  'MODULE_TERMIOS_STATE': 'yes',
  'MODULE_TIME_LDFLAGS': '',
  'MODULE_TIME_STATE': 'yes',
  'MODULE_UNICODEDATA_DEPS': './Modules/unicodedata_db.h '
                             './Modules/unicodename_db.h',
+ 'MODULE_UNICODEDATA_LDFLAGS': '',
  'MODULE_UNICODEDATA_STATE': 'yes',
  'MODULE_XXLIMITED_35_STATE': 'yes',
  'MODULE_XXLIMITED_STATE': 'yes',
@@ -731,7 +797,9 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE_ZLIB_LDFLAGS': '-lz',
  'MODULE_ZLIB_STATE': 'yes',
  'MODULE__ABC_LDFLAGS': '',
+ 'MODULE__ASYNCIO_LDFLAGS': '',
  'MODULE__ASYNCIO_STATE': 'yes',
+ 'MODULE__BISECT_LDFLAGS': '',
  'MODULE__BISECT_STATE': 'yes',
  'MODULE__BLAKE2_CFLAGS': '',
  'MODULE__BLAKE2_DEPS': './Modules/_blake2/impl/blake2-config.h '
@@ -754,18 +822,26 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__BZ2_CFLAGS': '',
  'MODULE__BZ2_LDFLAGS': '-lbz2',
  'MODULE__BZ2_STATE': 'yes',
+ 'MODULE__CODECS_CN_LDFLAGS': '',
  'MODULE__CODECS_CN_STATE': 'yes',
+ 'MODULE__CODECS_HK_LDFLAGS': '',
  'MODULE__CODECS_HK_STATE': 'yes',
+ 'MODULE__CODECS_ISO2022_LDFLAGS': '',
  'MODULE__CODECS_ISO2022_STATE': 'yes',
+ 'MODULE__CODECS_JP_LDFLAGS': '',
  'MODULE__CODECS_JP_STATE': 'yes',
+ 'MODULE__CODECS_KR_LDFLAGS': '',
  'MODULE__CODECS_KR_STATE': 'yes',
  'MODULE__CODECS_LDFLAGS': '',
+ 'MODULE__CODECS_TW_LDFLAGS': '',
  'MODULE__CODECS_TW_STATE': 'yes',
  'MODULE__COLLECTIONS_LDFLAGS': '',
+ 'MODULE__CONTEXTVARS_LDFLAGS': '',
  'MODULE__CONTEXTVARS_STATE': 'yes',
  'MODULE__CRYPT_CFLAGS': '',
  'MODULE__CRYPT_LDFLAGS': '-lcrypt',
  'MODULE__CRYPT_STATE': 'yes',
+ 'MODULE__CSV_LDFLAGS': '',
  'MODULE__CSV_STATE': 'yes',
  'MODULE__CTYPES_DEPS': './Modules/_ctypes/ctypes.h',
  'MODULE__CTYPES_TEST_LDFLAGS': '-lm',
@@ -780,6 +856,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__DECIMAL_STATE': 'yes',
  'MODULE__ELEMENTTREE_CFLAGS': '-I./Modules/expat',
  'MODULE__ELEMENTTREE_DEPS': './Modules/pyexpat.c \\ Modules/expat/libexpat.a',
+ 'MODULE__ELEMENTTREE_LDFLAGS': '',
  'MODULE__ELEMENTTREE_STATE': 'yes',
  'MODULE__FUNCTOOLS_LDFLAGS': '',
  'MODULE__GDBM_CFLAGS': '',
@@ -789,54 +866,67 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__HASHLIB_DEPS': './Modules/hashlib.h',
  'MODULE__HASHLIB_LDFLAGS': '-lcrypto',
  'MODULE__HASHLIB_STATE': 'yes',
+ 'MODULE__HEAPQ_LDFLAGS': '',
  'MODULE__HEAPQ_STATE': 'yes',
  'MODULE__IO_CFLAGS': '-I./Modules/_io',
  'MODULE__IO_DEPS': './Modules/_io/_iomodule.h',
  'MODULE__IO_LDFLAGS': '',
  'MODULE__IO_STATE': 'yes',
+ 'MODULE__JSON_LDFLAGS': '',
  'MODULE__JSON_STATE': 'yes',
  'MODULE__LOCALE_LDFLAGS': '',
+ 'MODULE__LSPROF_LDFLAGS': '',
  'MODULE__LSPROF_STATE': 'yes',
  'MODULE__LZMA_CFLAGS': '',
  'MODULE__LZMA_LDFLAGS': '-llzma',
  'MODULE__LZMA_STATE': 'yes',
  'MODULE__MD5_DEPS': './Modules/hashlib.h',
+ 'MODULE__MD5_LDFLAGS': '',
  'MODULE__MD5_STATE': 'yes',
+ 'MODULE__MULTIBYTECODEC_LDFLAGS': '',
  'MODULE__MULTIBYTECODEC_STATE': 'yes',
  'MODULE__MULTIPROCESSING_CFLAGS': '-I./Modules/_multiprocessing',
  'MODULE__MULTIPROCESSING_STATE': 'yes',
+ 'MODULE__OPCODE_LDFLAGS': '',
  'MODULE__OPCODE_STATE': 'yes',
  'MODULE__OPERATOR_LDFLAGS': '',
+ 'MODULE__PICKLE_LDFLAGS': '',
  'MODULE__PICKLE_STATE': 'yes',
  'MODULE__POSIXSHMEM_CFLAGS': '-I./Modules/_multiprocessing',
  'MODULE__POSIXSHMEM_LDFLAGS': '',
  'MODULE__POSIXSHMEM_STATE': 'yes',
+ 'MODULE__POSIXSUBPROCESS_LDFLAGS': '',
  'MODULE__POSIXSUBPROCESS_STATE': 'yes',
+ 'MODULE__QUEUE_LDFLAGS': '',
  'MODULE__QUEUE_STATE': 'yes',
+ 'MODULE__RANDOM_LDFLAGS': '',
  'MODULE__RANDOM_STATE': 'yes',
  'MODULE__SCPROXY_STATE': 'n/a',
  'MODULE__SHA1_DEPS': './Modules/hashlib.h',
+ 'MODULE__SHA1_LDFLAGS': '',
  'MODULE__SHA1_STATE': 'yes',
  'MODULE__SHA256_DEPS': './Modules/hashlib.h',
+ 'MODULE__SHA256_LDFLAGS': '',
  'MODULE__SHA256_STATE': 'yes',
  'MODULE__SHA3_DEPS': './Modules/_sha3/sha3.c ./Modules/_sha3/sha3.h '
                       './Modules/hashlib.h',
+ 'MODULE__SHA3_LDFLAGS': '',
  'MODULE__SHA3_STATE': 'yes',
  'MODULE__SHA512_DEPS': './Modules/hashlib.h',
+ 'MODULE__SHA512_LDFLAGS': '',
  'MODULE__SHA512_STATE': 'yes',
  'MODULE__SIGNAL_LDFLAGS': '',
  'MODULE__SOCKET_DEPS': './Modules/socketmodule.h ./Modules/addrinfo.h '
                         './Modules/getaddrinfo.c ./Modules/getnameinfo.c',
+ 'MODULE__SOCKET_LDFLAGS': '',
  'MODULE__SOCKET_STATE': 'yes',
- 'MODULE__SQLITE3_CFLAGS': '-I./Modules/_sqlite',
  'MODULE__SQLITE3_DEPS': './Modules/_sqlite/connection.h '
                          './Modules/_sqlite/cursor.h '
                          './Modules/_sqlite/microprotocols.h '
                          './Modules/_sqlite/module.h '
                          './Modules/_sqlite/prepare_protocol.h '
                          './Modules/_sqlite/row.h ./Modules/_sqlite/util.h',
- 'MODULE__SQLITE3_LDFLAGS': '-lsqlite3',
- 'MODULE__SQLITE3_STATE': 'yes',
+ 'MODULE__SQLITE3_STATE': 'missing',
  'MODULE__SRE_LDFLAGS': '',
  'MODULE__SSL_CFLAGS': '',
  'MODULE__SSL_DEPS': './Modules/_ssl.h ./Modules/_ssl/cert.c '
@@ -848,6 +938,7 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__STATISTICS_LDFLAGS': '-lm',
  'MODULE__STATISTICS_STATE': 'yes',
  'MODULE__STAT_LDFLAGS': '',
+ 'MODULE__STRUCT_LDFLAGS': '',
  'MODULE__STRUCT_STATE': 'yes',
  'MODULE__SYMTABLE_LDFLAGS': '',
  'MODULE__TESTBUFFER_STATE': 'yes',
@@ -858,11 +949,9 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__TESTINTERNALCAPI_STATE': 'yes',
  'MODULE__TESTMULTIPHASE_STATE': 'yes',
  'MODULE__THREAD_LDFLAGS': '',
- 'MODULE__TKINTER_CFLAGS': '-I/usr/include/tcl8.6  -Wno-strict-prototypes '
-                           '-DWITH_APPINIT=1',
- 'MODULE__TKINTER_LDFLAGS': '-ltk8.6 -ltkstub8.6 -ltcl8.6 -ltclstub8.6',
- 'MODULE__TKINTER_STATE': 'yes',
+ 'MODULE__TKINTER_STATE': 'missing',
  'MODULE__TRACEMALLOC_LDFLAGS': '',
+ 'MODULE__TYPING_LDFLAGS': '',
  'MODULE__TYPING_STATE': 'yes',
  'MODULE__UUID_CFLAGS': '-I/usr/include/uuid',
  'MODULE__UUID_LDFLAGS': '-luuid',
@@ -870,11 +959,12 @@ build_time_vars = {'ABIFLAGS': '',
  'MODULE__WEAKREF_LDFLAGS': '',
  'MODULE__XXSUBINTERPRETERS_STATE': 'yes',
  'MODULE__XXTESTFUZZ_STATE': 'yes',
+ 'MODULE__ZONEINFO_LDFLAGS': '',
  'MODULE__ZONEINFO_STATE': 'yes',
  'MULTIARCH': 'x86_64-linux-gnu',
  'MULTIARCH_CPPFLAGS': '-DMULTIARCH=\\"x86_64-linux-gnu\\"',
  'MVWDELCH_IS_EXPRESSION': 1,
- 'NO_AS_NEEDED': '-Wl,--no-as-needed',
+ 'NO_AS_NEEDED': '',
  'OBJECT_OBJS': '\\',
  'OPENSSL_INCLUDES': '',
  'OPENSSL_LDFLAGS': '',
@@ -923,7 +1013,8 @@ build_time_vars = {'ABIFLAGS': '',
                              '-Werror=implicit-function-declaration '
                              '-fvisibility=hidden -fprofile-use '
                              '-fprofile-correction -I./Include/internal -I. '
-                             '-I./Include -DPy_BUILD_CORE_BUILTIN',
+                             '-I./Include -fPIC -static '
+                             '-DPy_BUILD_CORE_BUILTIN',
  'PY_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall',
  'PY_CFLAGS_NODIST': '-fno-semantic-interposition -std=c11 -Wextra '
                      '-Wno-unused-parameter -Wno-missing-field-initializers '
@@ -936,16 +1027,16 @@ build_time_vars = {'ABIFLAGS': '',
                    '-Wno-unused-parameter -Wno-missing-field-initializers '
                    '-Werror=implicit-function-declaration -fvisibility=hidden '
                    '-fprofile-use -fprofile-correction -I./Include/internal '
-                   '-I. -I./Include -DPy_BUILD_CORE',
- 'PY_CORE_LDFLAGS': '-fno-semantic-interposition',
- 'PY_CPPFLAGS': '-I. -I./Include',
+                   '-I. -I./Include -fPIC -static -DPy_BUILD_CORE',
+ 'PY_CORE_LDFLAGS': '-static -static-libgcc -fno-semantic-interposition',
+ 'PY_CPPFLAGS': '-I. -I./Include -fPIC -static',
  'PY_ENABLE_SHARED': 0,
  'PY_FORMAT_SIZE_T': '"z"',
- 'PY_LDFLAGS': '',
+ 'PY_LDFLAGS': '-static -static-libgcc',
  'PY_LDFLAGS_NODIST': '-fno-semantic-interposition',
- 'PY_LDFLAGS_NOLTO': '',
+ 'PY_LDFLAGS_NOLTO': '-static -static-libgcc',
  'PY_SQLITE_ENABLE_LOAD_EXTENSION': 0,
- 'PY_SQLITE_HAVE_SERIALIZE': 1,
+ 'PY_SQLITE_HAVE_SERIALIZE': 0,
  'PY_SSL_DEFAULT_CIPHERS': 1,
  'PY_SSL_DEFAULT_CIPHER_STRING': 0,
  'PY_STDMODULE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
@@ -954,7 +1045,7 @@ build_time_vars = {'ABIFLAGS': '',
                         '-Werror=implicit-function-declaration '
                         '-fvisibility=hidden -fprofile-use '
                         '-fprofile-correction -I./Include/internal -I. '
-                        '-I./Include',
+                        '-I./Include -fPIC -static',
  'PY_SUPPORT_TIER': 1,
  'Py_DEBUG': 0,
  'Py_ENABLE_SHARED': 0,
