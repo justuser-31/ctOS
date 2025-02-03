@@ -1,0 +1,5 @@
+#!/home/devuan/Desktop/Python-3.11.3/INSTALLED/bin/python3.11
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()

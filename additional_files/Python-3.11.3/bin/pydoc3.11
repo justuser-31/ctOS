@@ -1,0 +1,5 @@
+#!/home/devuan/Desktop/Python-3.11.3/INSTALLED/bin/python3.11
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()
