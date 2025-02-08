@@ -16,12 +16,8 @@ fi
 # Mount files from iso
 mkdir /mnt/iso_files
 mount -t iso9660 -o ro /dev/sr0 /mnt/iso_files
-# Mount progs
-mkdir /progs
-mount /mnt/iso_files/progs /progs
-# Mount additional files
-mkdir /files
-mount /mnt/iso_files/files /files
+# Change root dir
+#chroot /mnt/iso_files
 
 export PATH=$PATH:/progs
 

@@ -3,35 +3,33 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-rm -rf rootfs_iso/*
-rm -r iso/files
-rm -r iso/progs
-
-# Создание папок и добавление всех файлов
-mkdir rootfs_iso
-cp -r rootfs/* rootfs_iso/
-
-mkdir iso/files iso/progs
-cp -r additional_files/* iso/files/
-cp -r progs/binary_files/* iso/progs
-
-# Добавление скрипта инициализации
-cp iso/init rootfs_iso/
+echo "[BUILD]: MAKE full rootfs..."
+./make_rootfs.sh
 
 # Присваивание прав на папку rootfs root-пользователю
 # Иначе не будет грузиться при запуске
 chown -R root:root rootfs_iso/
 
+echo "[BUILD]: CP rootfs..."
+cp -r rootfs_full/* iso/
+
+echo "[BUILD]: GENERATE initrd..."
 # Генерация initrd
 cd rootfs_iso
 find . -path "./src" -prune -o -print0 | cpio --null -H newc -o > ../iso/boot/initrd
 cd ..
 
+echo "[BUILD]: GENERATE iso..."
 # Генерация iso файла
 genisoimage -o ctOS.iso -b isolinux/isolinux.bin \
 -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
 -boot-info-table -J -R -V "ctOS" iso/
 
+echo "[BUILD]: MAKE bootable..."
 # Сделать iso возможным для записи на флешку
 # Пока не уверен, что работает
 isohybrid ctOS.iso
+
+# Вернуть права
+chown -R $USER:$USER rootfs_iso/
+chown $USER:$USER rootfs_iso/
