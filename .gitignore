@@ -2,3 +2,5 @@ boot.img
 boot_backup.img
 archives/
 mounted/
+rootfs_iso/
+*.iso
