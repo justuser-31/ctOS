@@ -31,5 +31,7 @@ echo "[BUILD]: MAKE bootable..."
 isohybrid ctOS.iso
 
 # Вернуть права
-chown -R $USER:$USER rootfs_iso/
-chown $USER:$USER rootfs_iso/
+user=${SUDO_USER:-$(whoami)}
+
+chown -R $user:$user rootfs_iso/
+chown $user:$user rootfs_iso/
