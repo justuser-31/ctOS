@@ -1,4 +1,4 @@
-#!/home/devuan/Desktop/Python-3.11.3/INSTALLED/bin/python3.11
+#!/bin/python3.11
 # -*- python -*-
 
 # Keep this script in sync with python-config.sh.in

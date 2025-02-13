@@ -31,8 +31,8 @@ MODLIBS=           $(LOCALMODLIBS) $(BASEMODLIBS)
 VERSION=	3.11
 srcdir=		.
 
-abs_srcdir=	/home/devuan/Desktop/Python-3.11.3
-abs_builddir=	/home/devuan/Desktop/Python-3.11.3
+abs_srcdir=	/
+abs_builddir=	/
 
 
 CC=		gcc
@@ -134,7 +134,7 @@ MULTIARCH=	x86_64-linux-gnu
 MULTIARCH_CPPFLAGS = -DMULTIARCH=\"x86_64-linux-gnu\"
 
 # Install prefix for architecture-independent files
-prefix=		/home/devuan/Desktop/Python-3.11.3/INSTALLED
+prefix=		/
 
 # Install prefix for architecture-dependent files
 exec_prefix=	${prefix}
@@ -355,7 +355,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' '--disable-shared' '--prefix=/home/devuan/Desktop/Python-3.11.3/INSTALLED/' '--enable-optimizations'
+CONFIG_ARGS=	 'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' '--disable-shared' '--prefix=/' '--enable-optimizations'
 
 
 # Subdirectories with code

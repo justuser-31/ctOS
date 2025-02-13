@@ -1,5 +1,5 @@
 # See: man pkg-config
-prefix=/home/devuan/Desktop/Python-3.11.3/INSTALLED
+prefix=/
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
