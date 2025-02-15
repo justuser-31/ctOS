@@ -1,10 +1,17 @@
-echo "[BUILD]: RM old..."
-rm -rf rootfs_full
-mkdir rootfs_full
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run this script with sudo."
+    exit 1
+fi
+shopt -s expand_aliases
+alias rt="./run_tracker/rtracker"
 
-mkdir rootfs_full/progs
-
-echo "[BUILD]: CP files..."
-cp -r rootfs/* rootfs_full
-cp -r progs/binary_files/* rootfs_full/progs/
-cp -r additional_files/*/* rootfs_full/
+rt "[BUILD]: RM old rootfs..." \
+	%t rm -rf rootfs_full
+rt "[BUILD]: MK rootfs_full..."\
+	%% mkdir -p rootfs_full/progs
+rt "[BUILD]: CP rootfs..." \
+	%% cp -r rootfs/* rootfs_full
+rt "[BUILD]: CP progs..." \
+	%% cp -r progs/binary_files/* rootfs_full/progs/
+rt "[BUILD]: CP additional files..." \
+	cp -r additional_files/*/* rootfs_full/
