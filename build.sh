@@ -19,6 +19,8 @@ rt "[BUILD]: COPY rootfs in drive..." \
 	%% cp -r rootfs_full/* mounted/
 rt "[BUILD]: COPY SYSLINUX TO mounted/..." \
 	%% cp -r syslinux mounted/
-#chmod -R 777 mounted/syslinux/
+rt "[BUILD] CHMOD 777 mounted/syslinux..." \
+	%% chmod -R 777 mounted/syslinux/
+
 #chmod 777 mounted/syslinux/
-# А нужно ли это?
+# А нужно ли это? Похоже нужно.
