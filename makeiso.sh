@@ -6,7 +6,7 @@ shopt -s expand_aliases
 alias rt="$(pwd)/run_tracker/rtracker"
 
 rt "[BUILD]: MAKE full rootfs..." \
-	%% ./make_rootfs.sh
+	%t ./make_rootfs.sh
 # Присваивание прав на папку rootfs root-пользователю
 # Иначе не будет грузиться при запуске
 #chown -R root:root rootfs_iso/
@@ -22,9 +22,9 @@ cd ..
 
 # Генерация iso файла
 rt "[BUILD]: GENERATE iso..." \
-	%% genisoimage -o ctOS.iso -b isolinux/isolinux.bin \
+	%% genisoimage -quiet -o ctOS.iso -b isolinux/isolinux.bin \
 	-c isolinux/boot.cat -no-emul-boot -boot-load-size 4 \
-	-boot-info-table -J -R -V "ctOS" iso/
+	-boot-info-table -J -R -V 'ctOS' iso/
 
 # Сделать iso возможным для записи на флешку
 # Пока не уверен, что работает

@@ -14,13 +14,11 @@ rt "[BUILD]: BACKUP boot.img..." \
 rt "[BUILD]: RM old files" \
 	%% find mounted/ ! -name 'mounted' ! -name 'lost+found' ! -name 'ldlinux.sys' ! -name 'ldlinux.c32' -delete
 rt "[BUILD]: MAKE full rootfs..." \
-	%% ./make_rootfs.sh
+	%t ./make_rootfs.sh
 rt "[BUILD]: COPY rootfs in drive..." \
 	%% cp -r rootfs_full/* mounted/
 rt "[BUILD]: COPY SYSLINUX TO mounted/..." \
 	%% cp -r syslinux mounted/
 rt "[BUILD] CHMOD 777 mounted/syslinux..." \
-	%% chmod -R 777 mounted/syslinux/
-
-#chmod 777 mounted/syslinux/
+	%% chmod -R 777 mounted/syslinux/ ; chmod 777 mounted/syslinux/
 # А нужно ли это? Похоже нужно.

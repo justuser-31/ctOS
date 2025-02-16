@@ -14,4 +14,4 @@ rt "[BUILD]: CP rootfs..." \
 rt "[BUILD]: CP progs..." \
 	%% cp -r progs/binary_files/* rootfs_full/progs/
 rt "[BUILD]: CP additional files..." \
-	cp -r additional_files/*/* rootfs_full/
+	%% cp -r additional_files/*/* rootfs_full/
