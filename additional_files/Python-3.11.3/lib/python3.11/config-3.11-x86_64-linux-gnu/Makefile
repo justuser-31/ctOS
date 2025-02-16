@@ -31,8 +31,8 @@ MODLIBS=           $(LOCALMODLIBS) $(BASEMODLIBS)
 VERSION=	3.11
 srcdir=		.
 
-abs_srcdir=	/
-abs_builddir=	/
+abs_srcdir=	/home/devuan/Desktop/Python-3.11.3
+abs_builddir=	/home/devuan/Desktop/Python-3.11.3
 
 
 CC=		gcc
@@ -44,9 +44,9 @@ READELF=	readelf
 SOABI=		cpython-311-x86_64-linux-gnu
 LDVERSION=	$(VERSION)$(ABIFLAGS)
 LIBPYTHON=	
-GITVERSION=	
-GITTAG=		
-GITBRANCH=	
+GITVERSION=	git --git-dir $(srcdir)/.git rev-parse --short HEAD
+GITTAG=		git --git-dir $(srcdir)/.git describe --all --always --dirty
+GITBRANCH=	git --git-dir $(srcdir)/.git name-rev --name-only HEAD
 PGO_PROF_GEN_FLAG=-fprofile-generate
 PGO_PROF_USE_FLAG=-fprofile-use -fprofile-correction
 LLVM_PROF_MERGER=true
@@ -86,11 +86,11 @@ CONFIGURE_CFLAGS=
 # CFLAGS_NODIST is used for building the interpreter and stdlib C extensions.
 # Use it when a compiler flag should _not_ be part of the distutils CFLAGS
 # once Python is installed (Issue #21121).
-CONFIGURE_CFLAGS_NODIST= -fno-semantic-interposition -std=c11 -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration -fvisibility=hidden
+CONFIGURE_CFLAGS_NODIST= -std=c11 -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Werror=implicit-function-declaration -fvisibility=hidden
 # LDFLAGS_NODIST is used in the same manner as CFLAGS_NODIST.
 # Use it when a linker flag should _not_ be part of the distutils LDFLAGS
 # once Python is installed (bpo-35257)
-CONFIGURE_LDFLAGS_NODIST= -fno-semantic-interposition
+CONFIGURE_LDFLAGS_NODIST=
 # LDFLAGS_NOLTO is an extra flag to disable lto. It is used to speed up building
 # of _bootstrap_python and _freeze_module tools, which don't need LTO.
 CONFIGURE_LDFLAGS_NOLTO=
@@ -355,7 +355,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' '--disable-shared' '--prefix=/' '--enable-optimizations'
+CONFIG_ARGS=	 'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' '--disable-shared' '--prefix=/'
 
 
 # Subdirectories with code
@@ -713,7 +713,7 @@ LIBEXPAT_HEADERS= \
 # Rules
 
 # Default target
-all:		profile-opt
+all:		build_all
 build_all:	check-clean-src $(BUILDPYTHON) platform oldsharedmods sharedmods \
 		gdbhooks Programs/_testembed python-config
 build_wasm: check-clean-src $(BUILDPYTHON) platform oldsharedmods python-config
@@ -763,7 +763,7 @@ profile-run-stamp:
 	touch $@
 
 build_all_generate_profile:
-	$(MAKE) build_all CFLAGS_NODIST="$(CFLAGS_NODIST) $(PGO_PROF_GEN_FLAG)" LDFLAGS_NODIST="$(LDFLAGS_NODIST) $(PGO_PROF_GEN_FLAG)" LIBS="$(LIBS)"
+	$(MAKE) all CFLAGS_NODIST="$(CFLAGS_NODIST) $(PGO_PROF_GEN_FLAG)" LDFLAGS_NODIST="$(LDFLAGS_NODIST) $(PGO_PROF_GEN_FLAG)" LIBS="$(LIBS)"
 
 run_profile_task:
 	@ # FIXME: can't run for a cross build
@@ -777,14 +777,14 @@ build_all_merge_profile:
 profile-opt: profile-run-stamp
 	@echo "Rebuilding with profile guided optimizations:"
 	-rm -f profile-clean-stamp
-	$(MAKE) build_all CFLAGS_NODIST="$(CFLAGS_NODIST) $(PGO_PROF_USE_FLAG)" LDFLAGS_NODIST="$(LDFLAGS_NODIST)"
+	$(MAKE) all CFLAGS_NODIST="$(CFLAGS_NODIST) $(PGO_PROF_USE_FLAG)" LDFLAGS_NODIST="$(LDFLAGS_NODIST)"
 
 # Compile and run with gcov
 .PHONY=coverage coverage-lcov coverage-report
 coverage:
 	@echo "Building with support for coverage checking:"
 	$(MAKE) clean
-	$(MAKE) build_all CFLAGS="$(CFLAGS) -O0 -pg --coverage" LDFLAGS="$(LDFLAGS) --coverage"
+	$(MAKE) all CFLAGS="$(CFLAGS) -O0 -pg --coverage" LDFLAGS="$(LDFLAGS) --coverage"
 
 coverage-lcov:
 	@echo "Creating Coverage HTML report with LCOV:"
@@ -2554,7 +2554,7 @@ profile-removal:
 	rm -f profile-run-stamp
 
 clean: clean-retain-profile
-	@if test profile-opt = profile-opt; then \
+	@if test build_all = profile-opt; then \
 		rm -f profile-gen-stamp profile-clean-stamp; \
 		$(MAKE) profile-removal; \
 	fi

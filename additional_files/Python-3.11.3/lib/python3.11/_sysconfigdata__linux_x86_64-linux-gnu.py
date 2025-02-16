@@ -12,8 +12,8 @@ build_time_vars = {'ABIFLAGS': '',
  'BASECFLAGS': '-Wsign-compare',
  'BASECPPFLAGS': '',
  'BASEMODLIBS': '',
- 'BINDIR': '/bin',
- 'BINLIBDEST': '/lib/python3.11',
+ 'BINDIR': '//bin',
+ 'BINLIBDEST': '//lib/python3.11',
  'BLDLIBRARY': 'libpython3.11.a',
  'BLDSHARED': 'gcc -shared -static -static-libgcc',
  'BOOTSTRAP_HEADERS': '\\',
@@ -26,31 +26,29 @@ build_time_vars = {'ABIFLAGS': '',
  'CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall',
  'CFLAGSFORSHARED': '',
  'CFLAGS_ALIASING': '',
+ 'CFLAGS_NODIST': '',
  'CONFIGFILES': 'configure configure.ac acconfig.h pyconfig.h.in '
                 'Makefile.pre.in',
  'CONFIGURE_CFLAGS': '',
- 'CONFIGURE_CFLAGS_NODIST': '-fno-semantic-interposition -std=c11 -Wextra '
-                            '-Wno-unused-parameter '
+ 'CONFIGURE_CFLAGS_NODIST': '-std=c11 -Wextra -Wno-unused-parameter '
                             '-Wno-missing-field-initializers '
                             '-Werror=implicit-function-declaration '
                             '-fvisibility=hidden',
  'CONFIGURE_CPPFLAGS': '-fPIC -static',
  'CONFIGURE_LDFLAGS': '-static -static-libgcc',
- 'CONFIGURE_LDFLAGS_NODIST': '-fno-semantic-interposition',
+ 'CONFIGURE_LDFLAGS_NODIST': '',
  'CONFIGURE_LDFLAGS_NOLTO': '',
  'CONFIG_ARGS': "'LDFLAGS=-static -static-libgcc' 'CPPFLAGS=-fPIC -static' "
-                "'--disable-shared' "
-                "'--prefix=/' "
-                "'--enable-optimizations'",
- 'CONFINCLUDEDIR': '/include',
- 'CONFINCLUDEPY': '/include/python3.11',
+                "'--disable-shared' '--prefix=/'",
+ 'CONFINCLUDEDIR': '//include',
+ 'CONFINCLUDEPY': '//include/python3.11',
  'COREPYTHONPATH': '',
- 'COVERAGE_INFO': '/coverage.info',
+ 'COVERAGE_INFO': '/home/devuan/Desktop/Python-3.11.3/coverage.info',
  'COVERAGE_LCOV_OPTIONS': '--rc lcov_branch_coverage=1',
- 'COVERAGE_REPORT': '/lcov-report',
+ 'COVERAGE_REPORT': '/home/devuan/Desktop/Python-3.11.3/lcov-report',
  'COVERAGE_REPORT_OPTIONS': '--rc lcov_branch_coverage=1 --branch-coverage '
                             '--title "CPython 3.11 LCOV report [commit $(shell '
-                            ')]"',
+                            'git --git-dir ./.git rev-parse --short HEAD)]"',
  'CPPFLAGS': '-I. -I./Include -fPIC -static',
  'CXX': 'g++',
  'DECIMAL_CFLAGS': '-I./Modules/_decimal/libmpdec -DCONFIG_64=1 -DANSI=1 '
@@ -59,13 +57,10 @@ build_time_vars = {'ABIFLAGS': '',
  'DEEPFREEZE_DEPS': './Tools/scripts/deepfreeze.py _bootstrap_python '
                     './Programs/_freeze_module.py \\',
  'DEEPFREEZE_OBJS': 'Python/deepfreeze/deepfreeze.o',
- 'DESTDIRS': '/ '
-             '/lib '
-             '/lib/python3.11 '
-             '/lib/python3.11/lib-dynload',
- 'DESTLIB': '/lib/python3.11',
+ 'DESTDIRS': '/ //lib //lib/python3.11 //lib/python3.11/lib-dynload',
+ 'DESTLIB': '//lib/python3.11',
  'DESTPATH': '',
- 'DESTSHARED': '/lib/python3.11/lib-dynload',
+ 'DESTSHARED': '//lib/python3.11/lib-dynload',
  'DFLAGS': '',
  'DIRMODE': 755,
  'DIST': 'README.rst ChangeLog configure configure.ac acconfig.h pyconfig.h.in '
@@ -103,9 +98,9 @@ build_time_vars = {'ABIFLAGS': '',
  'FROZEN_FILES_IN': '\\',
  'FROZEN_FILES_OUT': '\\',
  'GETPGRP_HAVE_ARG': 0,
- 'GITBRANCH': '',
- 'GITTAG': '',
- 'GITVERSION': '',
+ 'GITBRANCH': 'git --git-dir ./.git name-rev --name-only HEAD',
+ 'GITTAG': 'git --git-dir ./.git describe --all --always --dirty',
+ 'GITVERSION': 'git --git-dir ./.git rev-parse --short HEAD',
  'GNULD': 'yes',
  'HAVE_ACCEPT': 1,
  'HAVE_ACCEPT4': 1,
@@ -587,12 +582,10 @@ build_time_vars = {'ABIFLAGS': '',
  'HAVE__GETPTY': 0,
  'HOSTRUNNER': '',
  'HOST_GNU_TYPE': 'x86_64-pc-linux-gnu',
- 'INCLDIRSTOMAKE': '/include '
-                   '/include '
-                   '/include/python3.11 '
-                   '/include/python3.11',
- 'INCLUDEDIR': '/include',
- 'INCLUDEPY': '/include/python3.11',
+ 'INCLDIRSTOMAKE': '//include //include //include/python3.11 '
+                   '//include/python3.11',
+ 'INCLUDEDIR': '//include',
+ 'INCLUDEPY': '//include/python3.11',
  'INSTALL': '/usr/bin/install -c',
  'INSTALL_DATA': '/usr/bin/install -c -m 644',
  'INSTALL_PROGRAM': '/usr/bin/install -c',
@@ -603,20 +596,21 @@ build_time_vars = {'ABIFLAGS': '',
  'IO_OBJS': '\\',
  'LDCXXSHARED': 'g++ -shared',
  'LDFLAGS': '-static -static-libgcc',
+ 'LDFLAGS_NODIST': '',
  'LDLIBRARY': 'libpython3.11.a',
  'LDLIBRARYDIR': '',
  'LDSHARED': 'gcc -shared -static -static-libgcc',
  'LDVERSION': '3.11',
  'LIBC': '',
- 'LIBDEST': '/lib/python3.11',
- 'LIBDIR': '/lib',
+ 'LIBDEST': '//lib/python3.11',
+ 'LIBDIR': '//lib',
  'LIBEXPAT_A': 'Modules/expat/libexpat.a',
  'LIBEXPAT_CFLAGS': '-I./Modules/expat -Wsign-compare -DNDEBUG -g -fwrapv -O3 '
-                    '-Wall -fno-semantic-interposition -std=c11 -Wextra '
-                    '-Wno-unused-parameter -Wno-missing-field-initializers '
-                    '-Werror=implicit-function-declaration -fvisibility=hidden '
-                    '-fprofile-use -fprofile-correction -I./Include/internal '
-                    '-I. -I./Include -fPIC -static -fPIC',
+                    '-Wall -std=c11 -Wextra -Wno-unused-parameter '
+                    '-Wno-missing-field-initializers '
+                    '-Werror=implicit-function-declaration '
+                    '-fvisibility=hidden  -I./Include/internal -I. -I./Include '
+                    '-fPIC -static -fPIC',
  'LIBEXPAT_HEADERS': '\\',
  'LIBEXPAT_OBJS': '\\',
  'LIBFFI_INCLUDEDIR': '',
@@ -624,17 +618,17 @@ build_time_vars = {'ABIFLAGS': '',
  'LIBMPDEC_A': 'Modules/_decimal/libmpdec/libmpdec.a',
  'LIBMPDEC_CFLAGS': '-I./Modules/_decimal/libmpdec -DCONFIG_64=1 -DANSI=1 '
                     '-DHAVE_UINT128_T=1 -Wsign-compare -DNDEBUG -g -fwrapv -O3 '
-                    '-Wall -fno-semantic-interposition -std=c11 -Wextra '
-                    '-Wno-unused-parameter -Wno-missing-field-initializers '
-                    '-Werror=implicit-function-declaration -fvisibility=hidden '
-                    '-fprofile-use -fprofile-correction -I./Include/internal '
-                    '-I. -I./Include -fPIC -static -fPIC',
+                    '-Wall -std=c11 -Wextra -Wno-unused-parameter '
+                    '-Wno-missing-field-initializers '
+                    '-Werror=implicit-function-declaration '
+                    '-fvisibility=hidden  -I./Include/internal -I. -I./Include '
+                    '-fPIC -static -fPIC',
  'LIBMPDEC_HEADERS': '\\',
  'LIBMPDEC_OBJS': '\\',
  'LIBOBJDIR': 'Python/',
  'LIBOBJS': '',
- 'LIBPC': '/lib/pkgconfig',
- 'LIBPL': '/lib/python3.11/config-3.11-x86_64-linux-gnu',
+ 'LIBPC': '//lib/pkgconfig',
+ 'LIBPL': '//lib/python3.11/config-3.11-x86_64-linux-gnu',
  'LIBPYTHON': '',
  'LIBRARY': 'libpython3.11.a',
  'LIBRARY_DEPS': 'libpython3.11.a',
@@ -661,13 +655,13 @@ build_time_vars = {'ABIFLAGS': '',
                  '-l:libcrypto.a -Wl,--exclude-libs,libcrypto.a',
  'MACHDEP': 'linux',
  'MACHDEP_OBJS': '',
- 'MACHDESTLIB': '/lib/python3.11',
+ 'MACHDESTLIB': '//lib/python3.11',
  'MACOSX_DEPLOYMENT_TARGET': '',
  'MAINCC': 'gcc',
  'MAJOR_IN_MKDEV': 0,
  'MAJOR_IN_SYSMACROS': 1,
  'MAKESETUP': './Modules/makesetup',
- 'MANDIR': '/share/man',
+ 'MANDIR': '//share/man',
  'MKDIR_P': '/bin/mkdir -p',
  'MODBUILT_NAMES': 'atexit  faulthandler  posix  _signal  _tracemalloc  '
                    '_codecs  _collections  errno  _io  itertools  _sre  '
@@ -1007,44 +1001,40 @@ build_time_vars = {'ABIFLAGS': '',
  'PYTHON_OBJS': '\\',
  'PY_BUILTIN_HASHLIB_HASHES': '"md5,sha1,sha256,sha512,sha3,blake2"',
  'PY_BUILTIN_MODULE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
-                             '-fno-semantic-interposition -std=c11 -Wextra '
-                             '-Wno-unused-parameter '
+                             '-std=c11 -Wextra -Wno-unused-parameter '
                              '-Wno-missing-field-initializers '
                              '-Werror=implicit-function-declaration '
-                             '-fvisibility=hidden -fprofile-use '
-                             '-fprofile-correction -I./Include/internal -I. '
+                             '-fvisibility=hidden  -I./Include/internal -I. '
                              '-I./Include -fPIC -static '
                              '-DPy_BUILD_CORE_BUILTIN',
  'PY_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall',
- 'PY_CFLAGS_NODIST': '-fno-semantic-interposition -std=c11 -Wextra '
-                     '-Wno-unused-parameter -Wno-missing-field-initializers '
+ 'PY_CFLAGS_NODIST': '-std=c11 -Wextra -Wno-unused-parameter '
+                     '-Wno-missing-field-initializers '
                      '-Werror=implicit-function-declaration '
-                     '-fvisibility=hidden -fprofile-use -fprofile-correction '
-                     '-I./Include/internal',
+                     '-fvisibility=hidden  -I./Include/internal',
  'PY_COERCE_C_LOCALE': 1,
- 'PY_CORE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
-                   '-fno-semantic-interposition -std=c11 -Wextra '
-                   '-Wno-unused-parameter -Wno-missing-field-initializers '
-                   '-Werror=implicit-function-declaration -fvisibility=hidden '
-                   '-fprofile-use -fprofile-correction -I./Include/internal '
-                   '-I. -I./Include -fPIC -static -DPy_BUILD_CORE',
- 'PY_CORE_LDFLAGS': '-static -static-libgcc -fno-semantic-interposition',
+ 'PY_CORE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -std=c11 '
+                   '-Wextra -Wno-unused-parameter '
+                   '-Wno-missing-field-initializers '
+                   '-Werror=implicit-function-declaration -fvisibility=hidden  '
+                   '-I./Include/internal -I. -I./Include -fPIC -static '
+                   '-DPy_BUILD_CORE',
+ 'PY_CORE_LDFLAGS': '-static -static-libgcc',
  'PY_CPPFLAGS': '-I. -I./Include -fPIC -static',
  'PY_ENABLE_SHARED': 0,
  'PY_FORMAT_SIZE_T': '"z"',
  'PY_LDFLAGS': '-static -static-libgcc',
- 'PY_LDFLAGS_NODIST': '-fno-semantic-interposition',
+ 'PY_LDFLAGS_NODIST': '',
  'PY_LDFLAGS_NOLTO': '-static -static-libgcc',
  'PY_SQLITE_ENABLE_LOAD_EXTENSION': 0,
  'PY_SQLITE_HAVE_SERIALIZE': 0,
  'PY_SSL_DEFAULT_CIPHERS': 1,
  'PY_SSL_DEFAULT_CIPHER_STRING': 0,
- 'PY_STDMODULE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall '
-                        '-fno-semantic-interposition -std=c11 -Wextra '
-                        '-Wno-unused-parameter -Wno-missing-field-initializers '
+ 'PY_STDMODULE_CFLAGS': '-Wsign-compare -DNDEBUG -g -fwrapv -O3 -Wall -std=c11 '
+                        '-Wextra -Wno-unused-parameter '
+                        '-Wno-missing-field-initializers '
                         '-Werror=implicit-function-declaration '
-                        '-fvisibility=hidden -fprofile-use '
-                        '-fprofile-correction -I./Include/internal -I. '
+                        '-fvisibility=hidden  -I./Include/internal -I. '
                         '-I./Include -fPIC -static',
  'PY_SUPPORT_TIER': 1,
  'Py_DEBUG': 0,
@@ -1057,7 +1047,7 @@ build_time_vars = {'ABIFLAGS': '',
  'RESSRCDIR': 'Mac/Resources/framework',
  'RETSIGTYPE': 'void',
  'RUNSHARED': '',
- 'SCRIPTDIR': '/lib',
+ 'SCRIPTDIR': '//lib',
  'SETPGRP_HAVE_ARG': 0,
  'SHELL': '/bin/sh',
  'SHLIBS': '-ldl',
@@ -1116,8 +1106,8 @@ build_time_vars = {'ABIFLAGS': '',
  'UPDATE_FILE': './Tools/scripts/update_file.py',
  'USE_COMPUTED_GOTOS': 0,
  'VERSION': '3.11',
- 'WASM_ASSETS_DIR': '.',
- 'WASM_STDLIB': './lib/python3.11/os.py',
+ 'WASM_ASSETS_DIR': './',
+ 'WASM_STDLIB': './/lib/python3.11/os.py',
  'WHEEL_PKG_DIR': '',
  'WINDOW_HAS_FLAGS': 1,
  'WITH_DECIMAL_CONTEXTVAR': 1,
@@ -1132,9 +1122,9 @@ build_time_vars = {'ABIFLAGS': '',
  'WITH_VALGRIND': 0,
  'X87_DOUBLE_ROUNDING': 0,
  'XMLLIBSUBDIRS': 'xml xml/dom xml/etree xml/parsers xml/sax',
- 'abs_builddir': '/',
- 'abs_srcdir': '/',
- 'datarootdir': '/share',
+ 'abs_builddir': '/home/devuan/Desktop/Python-3.11.3',
+ 'abs_srcdir': '/home/devuan/Desktop/Python-3.11.3',
+ 'datarootdir': '//share',
  'exec_prefix': '/',
  'prefix': '/',
  'srcdir': '.'}
