@@ -1,4 +1,5 @@
-# Обновление модулей
+# Инициализация и обновление модулей
+git submodule init
 git submodule update
 
 sh init.sh
