@@ -7,7 +7,7 @@ fi
 git submodule init
 git submodule update
 
-sh rtracker_cloner.sh
-sh init.sh
-sh build.sh
-sh run.sh
+./rtracker_cloner.sh
+./init.sh
+./build.sh
+./run.sh
