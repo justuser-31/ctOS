@@ -21,4 +21,3 @@ rt "[BUILD]: COPY SYSLINUX TO mounted/..." \
 	%% cp -r syslinux mounted/
 rt "[BUILD] CHMOD 777 mounted/syslinux..." \
 	%% chmod -R 777 mounted/syslinux/ ; chmod 777 mounted/syslinux/
-# А нужно ли это? Похоже нужно.
