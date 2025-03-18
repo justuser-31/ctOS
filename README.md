@@ -1,22 +1,30 @@
 # ctOS
+
+## TG: @ctOS\_2\_0
+
 ## Инструкция по сборке системы:
+### ВСЕ ДЕЙСТВИЯ ВЫПОЛНЯЮТСЯ ИЗ ПОД ROOT!
 1. ```./requirements.sh ```
 2. ```./all.sh```
 ### Если вдруг вместо системы вы видите следующее:
 ```boot:```
 ### Закрывайте QEMU и выполняйте
-```./run.sh```
+```./build.sh; ./run.sh```
 
 ## Сборка всего в \*.iso образ:
-```./all.sh; sudo ./makeiso.sh;```
+```./all.sh; ./makeiso.sh;```
 
 ## Зависимости (устанавливаются при запуске requirements.sh):
 qemu-system-x86,
 extlinux,
-syslinux-utils
+syslinux-utils,
+musl-tools,
+gcc,
+genisoimage,
+python3-pip (для nuitka)
 
 ## Пояснение за скрипты:
-rtracker_cloner - Клонирует репозиторий run-tracker для нормальной работы последующих скриптов
+rtracker_cloner.sh - Клонирует репозиторий run-tracker для нормальной работы последующих скриптов
 
 init.sh - Создаёт новый виртуальный диск (boot.img) и устанавливает в него загрузчик
 
