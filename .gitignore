@@ -5,3 +5,4 @@ mounted/
 *.iso
 rootfs_full/
 rtracker
+rootfs_version.txt
