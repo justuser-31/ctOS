@@ -3,7 +3,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 shopt -s expand_aliases
-alias rt="./run_tracker/rtracker"
+alias rt="./rtracker"
 
 rt "[BUILD]: MOUNT boot.img TO mounted/..." \
 	%t mount boot.img mounted/

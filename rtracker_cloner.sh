@@ -17,6 +17,7 @@ download_latest() {
         chmod +x "$LOCAL_BINARY"
     else
         echo "[RT DOWN] Failed to download rtracker."
+        return 1
     fi
 }
 
@@ -37,6 +38,5 @@ if [ -f "$LOCAL_BINARY" ]; then
         fi
     fi
 else
-    echo "$LOCAL_BINARY not found."
     download_latest
 fi
