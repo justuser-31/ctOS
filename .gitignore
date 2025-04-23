@@ -1,6 +1,9 @@
-boot.img
-boot_backup.img
 archives/
 mounted/
-*.iso
 rootfs_full/
+rootfs/
+boot.img
+boot_backup.img
+*.iso
+rtracker
+rootfs_version.txt

@@ -4,10 +4,10 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Инициализация и обновление модулей
-git submodule init
-git submodule update
+git submodule update --init --recursive --remote
 
-./rtracker_cloner.sh
+./rtracker_download.sh
+./rootfs_download.sh
 ./init.sh
 ./build.sh
 ./run.sh

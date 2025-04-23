@@ -3,7 +3,7 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 shopt -s expand_aliases
-alias rt="$(pwd)/run_tracker/rtracker"
+alias rt="$(pwd)/rtracker"
 
 rt "[BUILD]: MAKE full rootfs..." \
 	%t ./make_rootfs.sh
