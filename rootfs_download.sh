@@ -1,17 +1,12 @@
 # Define variables
 LOCAL_ARCHIVE="rootfs-main.tar.gz"
 REPO_URL="https://api.github.com/repos/ctOS-devs/rootfs/releases/latest"
-TEMP_FILE="latest_release.tar.gz"
 VERSION_FILE="rootfs_version.txt"
 
 # Function to download the latest release
 download_latest() {
-    echo "Downloading the latest release..."
-    curl -L -o "$TEMP_FILE" "$DOWNLOAD_URL"
+    curl -L -o "$LOCAL_ARCHIVE" "$DOWNLOAD_URL"
     if [ $? -eq 0 ]; then
-        mv "$TEMP_FILE" "$LOCAL_ARCHIVE"
-        echo "$LATEST_VERSION" > "$VERSION_FILE"
-        echo "Downloaded and updated $LOCAL_ARCHIVE to version $LATEST_VERSION."
         rm -rf rootfs/*
         tar -xf rootfs-main.tar.gz -C rootfs/
         EXTRACTED_DIR=$(find "rootfs" -mindepth 1 -maxdepth 1 -type d -name "ctOS-devs-rootfs-*")
@@ -19,12 +14,12 @@ download_latest() {
         rm -r $EXTRACTED_DIR rootfs-main.tar.gz
     else
         echo "Failed to download the latest release."
+        return 1
     fi
 }
 
-# Check if the local archive exists
-if [ -f "$LOCAL_ARCHIVE" ]; then
-    echo "$LOCAL_ARCHIVE found."
+# Check if the version file exists
+if [ -f "$VERSION_FILE" ]; then
 
     # Check if the version file exists
     if [ -f "$VERSION_FILE" ]; then
@@ -44,27 +39,22 @@ if [ -f "$LOCAL_ARCHIVE" ]; then
 
         # Compare versions
         if [ "$LOCAL_VERSION" != "$LATEST_VERSION" ]; then
-            echo "A newer version ($LATEST_VERSION) is available."
             download_latest
-        else
-            echo "You have the latest version ($LOCAL_VERSION)."
         fi
-    else
-        echo "No internet connection or remote version not accessible. Skipping version check."
     fi
 else
-    echo "$LOCAL_ARCHIVE not found."
     # Check if the remote version is accessible
     if curl --output /dev/null --silent --head --fail "$REPO_URL"; then
         # Get the latest release information
         LATEST_INFO=$(curl -s "$REPO_URL")
         
-        # Extract the latest version and download URL without jq
+        # Extract the latest version and download URL
         LATEST_VERSION=$(echo "$LATEST_INFO" | grep -oP '"tag_name": "\K(.*?)(?=")')
         DOWNLOAD_URL=$(echo "$LATEST_INFO" | grep -oP '"tarball_url": "\K(.*?)(?=")')
         
         download_latest
     else
-        echo "No internet connection or remote version not accessible. Skipping download."
+    	# Error - can't download
+        return 1
     fi
 fi
