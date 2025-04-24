@@ -20,13 +20,7 @@ download_latest() {
 
 # Check if the version file exists
 if [ -f "$VERSION_FILE" ]; then
-
-    # Check if the version file exists
-    if [ -f "$VERSION_FILE" ]; then
-        LOCAL_VERSION=$(cat "$VERSION_FILE")
-    else
-        LOCAL_VERSION=""
-    fi
+    LOCAL_VERSION=$(cat "$VERSION_FILE")
 
     # Check if the remote version is accessible
     if curl --output /dev/null --silent --head --fail "$REPO_URL"; then
@@ -40,9 +34,11 @@ if [ -f "$VERSION_FILE" ]; then
         # Compare versions
         if [ "$LOCAL_VERSION" != "$LATEST_VERSION" ]; then
             download_latest
+            echo $LATEST_VERSION > $VERSION_FILE
         fi
     fi
 else
+	LOCAL_VERSION=""
     # Check if the remote version is accessible
     if curl --output /dev/null --silent --head --fail "$REPO_URL"; then
         # Get the latest release information
