@@ -15,3 +15,7 @@ rt "[BUILD]: CP progs..." \
 	%% cp -r progs/binary_files/* rootfs_full/progs/
 rt "[BUILD]: CP additional files..." \
 	%% cp -r additional_files/*/* rootfs_full/
+rt "[BUILD]: CP feature packages..." \
+	%% cp -rf packages rootfs_full/packages
+echo "[BUILD]: Add feature packages... (tracking chrooted tasks is not implemented)"
+chroot ./rootfs_full packages/prepare_rootfs.sh
