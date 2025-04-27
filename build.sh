@@ -7,10 +7,6 @@ alias rt="./rtracker"
 
 rt "[BUILD]: MOUNT boot.img TO mounted/..." \
 	%t mount boot.img mounted/
-rt "[BUILD]: RM boot_backup.img..." \
-	%t rm boot_backup.img
-rt "[BUILD]: BACKUP boot.img..." \
-	%% cp boot.img boot_backup.img
 rt "[BUILD]: RM old files" \
 	%% find mounted/ ! -name 'mounted' ! -name 'lost+found' ! -name 'ldlinux.sys' ! -name 'ldlinux.c32' -delete
 rt "[BUILD]: MAKE full rootfs..." \
