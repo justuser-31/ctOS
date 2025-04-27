@@ -18,4 +18,5 @@ rt "[BUILD]: CP additional files..." \
 rt "[BUILD]: CP feature packages..." \
 	%% cp -rf packages rootfs_full/packages
 rt "[BUILD]: Add feature packages..." \
- %% ./rootfs_full packages/prepare_rootfs.sh
+	%% chroot ./rootfs_full packages/prepare_rootfs.sh
+
