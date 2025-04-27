@@ -1,33 +1,47 @@
-import os
+from simple_term_menu import TerminalMenu
+from os import system, get_terminal_size
 
 name = ""
+file_name = ""
 lang = ""
 
-print("""\n       Creation project and space for program tool\n
-Supported programming languages:
-    C
-    Python
-""")
+print("Project creator".center(get_terminal_size().columns))
+
 name = input("Enter prog name: ")
-lang = input("Enter programming language: ")
 
-folder_name = name + "_" + lang
+print("\nSelect language:")
+langs = ["C", "Python"]
+menu = TerminalMenu(langs)
+sel_index = menu.show()
+if sel_index != None:
+	lang = langs[sel_index]
 
-if (lang == "Python" or lang == "python"):
-    print("Main language: Python.")
-    print("Creating..")
-    os.system(f"mkdir {folder_name}")
-    file_name = name + ".py"
-    os.system(f"touch {folder_name}/build.sh {folder_name}/{file_name}")
-    os.system(f"chmod 777 {folder_name}/build.sh")
-    os.system(f"echo 'python3 -m nuitka {file_name} -o {name}; cp {name} ../binary_files;' > {folder_name}/build.sh")
-elif (lang == "C" or lang == "c"):
-    print("Main language: C.")
-    print("Creating..")
-    os.system(f"mkdir {folder_name}")
-    file_name = name + ".c"
-    os.system(f"touch {folder_name}/build.sh {folder_name}/{file_name}")
-    os.system(f"chmod 777 {folder_name}/build.sh")
-    os.system(f"echo 'musl-gcc --static {file_name} -o {name}; cp {name} ../binary_files;' > {folder_name}/build.sh")
-else:
-    print("Language not recognized.")
+#name = input("Enter prog name: ")
+#lang = input("Enter programming language: ")
+
+match lang:
+	case "C":
+		folder = name + "_C"
+		file_name = f"{name}.c"
+		system(f"mkdir {folder}")
+		system(f"touch {folder}/{file_name}")
+		system(f"echo 'musl-gcc --static {file_name} -o {name}; cp {name} ../binary_files;' > {folder}/build.sh")
+		system(f"chmod +x {folder}/build.sh")
+		system(f"echo '{name}' > {folder}/.gitignore")
+	case "Python":
+		folder = name + "_PY"
+		file_name = f"{name}.py"
+		system(f"mkdir {folder}")
+		system(f"touch {folder}/{file_name}")
+		system(f"echo 'python3 -m nuitka {file_name} -o {name}; cp {name} ../binary_files;' > {folder}/build.sh")
+		system(f"chmod +x {folder}/build.sh")
+		system(f"echo '{name}' > {folder}/.gitignore")
+	case default:
+		print("Language not selected, exit...")
+
+print(f"""\n---------------------
+Language: {lang}
+Main file: {file_name}
+
+In path: {folder}
+---------------------""")
