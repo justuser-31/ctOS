@@ -15,8 +15,8 @@ rt "[BUILD]: CP progs..." \
 	%% cp -r progs/binary_files/* rootfs_full/progs/
 rt "[BUILD]: CP additional files..." \
 	%% cp -r additional_files/*/* rootfs_full/
-rt "[BUILD]: CP feature packages..." \
+rt "[BUILD]: CP packages into rootfs_full..." \
 	%% cp -rf packages rootfs_full/packages
-rt "[BUILD]: Add feature packages..." \
+rt "[BUILD]: INSTALL packages..." \
 	%% chroot ./rootfs_full packages/prepare_rootfs.sh
 
