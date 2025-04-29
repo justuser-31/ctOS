@@ -7,6 +7,9 @@ VERSION_FILE="rootfs_version.txt"
 download_latest() {
     curl -L -o "$LOCAL_ARCHIVE" "$DOWNLOAD_URL"
     if [ $? -eq 0 ]; then
+    	if [ ! -d rootfs ]; then
+    		mkdir rootfs
+    	fi
         rm -rf rootfs/*
         tar -xf rootfs-main.tar.gz -C rootfs/
         EXTRACTED_DIR=$(find "rootfs" -mindepth 1 -maxdepth 1 -type d -name "ctOS-devs-rootfs-*")
