@@ -52,6 +52,7 @@ else
         DOWNLOAD_URL=$(echo "$LATEST_INFO" | grep -oP '"tarball_url": "\K(.*?)(?=")')
         
         download_latest
+        echo $LATEST_VERSION > $VERSION_FILE
     else
     	# Error - can't download
         return 1
